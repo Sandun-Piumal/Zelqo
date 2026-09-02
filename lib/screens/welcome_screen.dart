@@ -25,37 +25,41 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                // Illustration cluster
                 SizedBox(
+                  width: 280,
                   height: 220,
                   child: Stack(
-                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
                     children: [
                       // Center circle with message icon
-                      Container(
-                        width: 110,
-                        height: 110,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.06),
-                              blurRadius: 20,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: const Icon(
-                          Icons.chat_bubble_outline_rounded,
-                          size: 44,
-                          color: zelqoGreen,
+                      Positioned(
+                        top: 55,
+                        left: 85,
+                        child: Container(
+                          width: 110,
+                          height: 110,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.06),
+                                blurRadius: 20,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.chat_bubble_outline_rounded,
+                            size: 44,
+                            color: zelqoGreen,
+                          ),
                         ),
                       ),
                       // Top-right avatar
                       Positioned(
-                        top: 10,
-                        right: 20,
+                        top: 0,
+                        right: 30,
                         child: Container(
                           width: 52,
                           height: 52,
@@ -72,8 +76,8 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       // Bottom-left avatar
                       Positioned(
-                        bottom: 20,
-                        left: 40,
+                        bottom: 0,
+                        left: 60,
                         child: Container(
                           width: 48,
                           height: 48,
@@ -89,19 +93,19 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                       // "Welcome!" bubble
                       Positioned(
-                        top: 46,
-                        left: 4,
+                        top: 40,
+                        left: 0,
                         child: _speechBubble('Welcome! 👋'),
                       ),
                       // "Let's chat" bubble
                       Positioned(
-                        bottom: 36,
+                        bottom: 55,
                         right: 0,
                         child: _speechBubble("Let's chat 💚"),
                       ),
                       // small dots
-                      const Positioned(top: 4, left: 66, child: _Dot()),
-                      const Positioned(top: 100, right: 6, child: _Dot()),
+                      const Positioned(top: 8, left: 100, child: _Dot()),
+                      const Positioned(top: 105, right: 15, child: _Dot()),
                     ],
                   ),
                 ),
