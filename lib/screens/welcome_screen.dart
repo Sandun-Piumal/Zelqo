@@ -38,11 +38,17 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           SafeArea(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-              child: Column(
-                children: [
-                  const SizedBox(height: 4),
+            bottom: false,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 4),
                   // Illustration cluster
                   SizedBox(
                     width: 280,
@@ -230,8 +236,11 @@ class WelcomeScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                ],
-              ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
