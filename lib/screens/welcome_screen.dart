@@ -10,40 +10,74 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFF0FBF6), Colors.white],
-            stops: [0.0, 0.4],
+      body: Stack(
+        children: [
+          // Background soft blobs
+          Positioned(
+            top: -60,
+            right: -80,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                color: lightGreenBg.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(120),
+              ),
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-            child: Column(
-              children: [
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: 280,
-                  height: 220,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      // Center circle with message icon
-                      Positioned(
-                        top: 55,
-                        left: 85,
-                        child: Container(
-                          width: 110,
-                          height: 110,
+          Positioned(
+            bottom: 120,
+            left: -100,
+            child: Container(
+              width: 240,
+              height: 200,
+              decoration: BoxDecoration(
+                color: lightGreenBg.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                children: [
+                  const SizedBox(height: 10),
+                  // Illustration cluster
+                  SizedBox(
+                    width: 300,
+                    height: 260,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      children: [
+                        // Outer rings
+                        Container(
+                          width: 260,
+                          height: 260,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: lightGreenBg.withOpacity(0.35),
+                          ),
+                        ),
+                        Container(
+                          width: 190,
+                          height: 190,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: lightGreenBg.withOpacity(0.55),
+                          ),
+                        ),
+                        // Center circle with message icon
+                        Container(
+                          width: 140,
+                          height: 140,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.06),
+                                color: Colors.black.withOpacity(0.05),
                                 blurRadius: 20,
                                 offset: const Offset(0, 4),
                               ),
@@ -51,176 +85,180 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           child: const Icon(
                             Icons.chat_bubble_outline_rounded,
-                            size: 44,
+                            size: 52,
                             color: zelqoGreen,
                           ),
                         ),
-                      ),
-                      // Top-right avatar
-                      Positioned(
-                        top: 0,
-                        right: 30,
-                        child: Container(
-                          width: 52,
-                          height: 52,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.shade300,
-                            border: Border.all(color: Colors.white, width: 3),
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8),
-                            ],
-                          ),
-                          child: const Icon(Icons.person, color: Colors.white70, size: 26),
+                        // Top-left avatar
+                        const Positioned(
+                          top: 30,
+                          left: 30,
+                          child: _AvatarCircle(bgColor: Color(0xFFD9D9D9), icon: Icons.person),
                         ),
-                      ),
-                      // Bottom-left avatar
-                      Positioned(
-                        bottom: 0,
-                        left: 60,
-                        child: Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: const Color(0xFFA8E0C8),
-                            border: Border.all(color: Colors.white, width: 3),
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8),
-                            ],
+                        // Top-right avatar
+                        const Positioned(
+                          top: 10,
+                          right: 10,
+                          child: _AvatarCircle(bgColor: Color(0xFFF3D9D9), icon: Icons.person),
+                        ),
+                        // Bottom-right avatar (green)
+                        const Positioned(
+                          bottom: 30,
+                          right: 30,
+                          child: _AvatarCircle(bgColor: Color(0xFFA8E0C8), icon: Icons.person),
+                        ),
+                        // "Welcome!" bubble
+                        Positioned(
+                          top: 65,
+                          left: -10,
+                          child: _speechBubble('Welcome! 👋'),
+                        ),
+                        // "Let's chat" bubble
+                        Positioned(
+                          top: 130,
+                          right: -20,
+                          child: _speechBubble("Let's chat 💚"),
+                        ),
+                        // Small chat dots bubble bottom-left
+                        Positioned(
+                          bottom: 55,
+                          left: 20,
+                          child: Container(
+                            width: 46,
+                            height: 36,
+                            decoration: BoxDecoration(
+                              color: zelqoGreen,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: const Icon(Icons.more_horiz, color: Colors.white, size: 20),
                           ),
                         ),
-                      ),
-                      // "Welcome!" bubble
-                      Positioned(
-                        top: 40,
-                        left: 0,
-                        child: _speechBubble('Welcome! 👋'),
-                      ),
-                      // "Let's chat" bubble
-                      Positioned(
-                        bottom: 55,
-                        right: 0,
-                        child: _speechBubble("Let's chat 💚"),
-                      ),
-                      // small dots
-                      const Positioned(top: 8, left: 100, child: _Dot()),
-                      const Positioned(top: 105, right: 15, child: _Dot()),
+                        // Paper plane icon
+                        Positioned(
+                          bottom: 90,
+                          right: 55,
+                          child: Icon(Icons.send_rounded, color: zelqoGreen, size: 22),
+                        ),
+                        // small dots
+                        const Positioned(top: 0, left: 90, child: _Dot()),
+                        const Positioned(top: 90, right: 0, child: _Dot()),
+                        const Positioned(bottom: 10, left: 110, child: _Dot()),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'Welcome to',
+                    style: TextStyle(fontSize: 15, color: Colors.black54),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'Zelqo',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Simple. Secure. Meaningful conversations.',
+                    style: TextStyle(fontSize: 13, color: Colors.black45),
+                  ),
+                  const SizedBox(height: 20),
+                  // Feature icons row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      _FeatureIcon(icon: Icons.bolt, label: 'Fast'),
+                      _FeatureIcon(icon: Icons.lock_outline, label: 'Secure'),
+                      _FeatureIcon(icon: Icons.groups_outlined, label: 'Private'),
                     ],
                   ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Welcome to',
-                  style: TextStyle(fontSize: 15, color: Colors.black54),
-                ),
-                const SizedBox(height: 2),
-                const Text(
-                  'Zelqo',
-                  style: TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                const Text(
-                  'Simple. Secure. Meaningful conversations.',
-                  style: TextStyle(fontSize: 13, color: Colors.black45),
-                ),
-                const SizedBox(height: 22),
-                // Feature icons row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: const [
-                    _FeatureIcon(icon: Icons.bolt, label: 'Fast'),
-                    _FeatureIcon(icon: Icons.lock_outline, label: 'Secure'),
-                    _FeatureIcon(icon: Icons.groups_outlined, label: 'Private'),
-                  ],
-                ),
-                const SizedBox(height: 22),
-                // Privacy notice card
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey.shade200),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Icon(Icons.verified_user_outlined, color: zelqoGreen, size: 22),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: RichText(
-                          text: const TextSpan(
-                            style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.6),
-                            children: [
-                              TextSpan(text: 'Your privacy matters to us. Read our '),
-                              TextSpan(
-                                text: 'Privacy policy',
-                                style: TextStyle(color: zelqoGreen),
-                              ),
-                              TextSpan(text: ' and '),
-                              TextSpan(
-                                text: 'Terms of service.',
-                                style: TextStyle(color: zelqoGreen),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Agree button + arrow circle
-                Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        height: 52,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: zelqoGreen,
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(26),
+                  const SizedBox(height: 20),
+                  // Privacy notice card
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.grey.shade200),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Icon(Icons.verified_user_outlined, color: zelqoGreen, size: 22),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: RichText(
+                            text: const TextSpan(
+                              style: TextStyle(fontSize: 12, color: Colors.black87, height: 1.6),
+                              children: [
+                                TextSpan(text: 'Your privacy matters to us. Read our '),
+                                TextSpan(
+                                  text: 'Privacy policy',
+                                  style: TextStyle(color: zelqoGreen),
+                                ),
+                                TextSpan(text: ' and '),
+                                TextSpan(
+                                  text: 'Terms of service.',
+                                  style: TextStyle(color: zelqoGreen),
+                                ),
+                              ],
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => const LoginScreen()),
-                            );
-                          },
-                          child: const Text(
-                            'Agree and continue',
-                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Agree button + arrow circle
+                  Row(
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          height: 52,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: zelqoGreen,
+                              foregroundColor: Colors.white,
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(26),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const LoginScreen()),
+                              );
+                            },
+                            child: const Text(
+                              'Agree and continue',
+                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Container(
-                      width: 52,
-                      height: 52,
-                      decoration: const BoxDecoration(
-                        color: lightGreenBg,
-                        shape: BoxShape.circle,
+                      const SizedBox(width: 10),
+                      Container(
+                        width: 52,
+                        height: 52,
+                        decoration: const BoxDecoration(
+                          color: lightGreenBg,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.arrow_forward, color: zelqoGreen),
                       ),
-                      child: const Icon(Icons.arrow_forward, color: zelqoGreen),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -236,6 +274,29 @@ class WelcomeScreen extends StatelessWidget {
         ],
       ),
       child: Text(text, style: const TextStyle(fontSize: 12)),
+    );
+  }
+}
+
+class _AvatarCircle extends StatelessWidget {
+  final Color bgColor;
+  final IconData icon;
+  const _AvatarCircle({required this.bgColor, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 54,
+      height: 54,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: bgColor,
+        border: Border.all(color: Colors.white, width: 3),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8),
+        ],
+      ),
+      child: Icon(icon, color: Colors.white, size: 26),
     );
   }
 }
