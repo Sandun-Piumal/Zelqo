@@ -42,27 +42,27 @@ class WelcomeScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 4),
                   // Illustration cluster
                   SizedBox(
-                    width: 300,
-                    height: 260,
+                    width: 280,
+                    height: 220,
                     child: Stack(
                       clipBehavior: Clip.none,
                       alignment: Alignment.center,
                       children: [
                         // Outer rings
                         Container(
-                          width: 260,
-                          height: 260,
+                          width: 220,
+                          height: 220,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: lightGreenBg.withOpacity(0.35),
                           ),
                         ),
                         Container(
-                          width: 190,
-                          height: 190,
+                          width: 160,
+                          height: 160,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: lightGreenBg.withOpacity(0.55),
@@ -70,8 +70,8 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         // Center circle with message icon
                         Container(
-                          width: 140,
-                          height: 140,
+                          width: 120,
+                          height: 120,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
@@ -91,38 +91,55 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         // Top-left avatar
                         const Positioned(
-                          top: 30,
-                          left: 30,
+                          top: 5,
+                          left: 5,
                           child: _AvatarCircle(bgColor: Color(0xFFD9D9D9), icon: Icons.person),
                         ),
                         // Top-right avatar
                         const Positioned(
-                          top: 10,
-                          right: 10,
+                          top: -5,
+                          right: 5,
                           child: _AvatarCircle(bgColor: Color(0xFFF3D9D9), icon: Icons.person),
                         ),
-                        // Bottom-right avatar (green)
+                        // Bottom-left avatar (solid green, no icon)
+                        Positioned(
+                          bottom: 5,
+                          left: 20,
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: const Color(0xFFA8E0C8),
+                              border: Border.all(color: Colors.white, width: 3),
+                              boxShadow: [
+                                BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 8),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Bottom-right avatar
                         const Positioned(
-                          bottom: 30,
-                          right: 30,
+                          bottom: -5,
+                          right: 10,
                           child: _AvatarCircle(bgColor: Color(0xFFA8E0C8), icon: Icons.person),
                         ),
                         // "Welcome!" bubble
                         Positioned(
-                          top: 65,
-                          left: -10,
+                          top: 35,
+                          left: -20,
                           child: _speechBubble('Welcome! 👋'),
                         ),
                         // "Let's chat" bubble
                         Positioned(
-                          top: 130,
-                          right: -20,
+                          top: 75,
+                          right: -30,
                           child: _speechBubble("Let's chat 💚"),
                         ),
-                        // Small chat dots bubble bottom-left
+                        // Small chat dots bubble bottom-left-center
                         Positioned(
-                          bottom: 55,
-                          left: 20,
+                          bottom: 45,
+                          left: -5,
                           child: Container(
                             width: 46,
                             height: 36,
@@ -135,18 +152,18 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                         // Paper plane icon
                         Positioned(
-                          bottom: 90,
-                          right: 55,
+                          bottom: 50,
+                          right: 50,
                           child: Icon(Icons.send_rounded, color: zelqoGreen, size: 22),
                         ),
                         // small dots
-                        const Positioned(top: 0, left: 90, child: _Dot()),
-                        const Positioned(top: 90, right: 0, child: _Dot()),
-                        const Positioned(bottom: 10, left: 110, child: _Dot()),
+                        const Positioned(top: -10, left: 90, child: _Dot()),
+                        const Positioned(top: 60, right: -5, child: _Dot()),
+                        const Positioned(bottom: -10, left: 120, child: _Dot()),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   const Text(
                     'Welcome to',
                     style: TextStyle(fontSize: 15, color: Colors.black54),
@@ -212,53 +229,56 @@ class WelcomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  // Agree button + arrow circle
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 52,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: zelqoGreen,
-                              foregroundColor: Colors.white,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(26),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => const LoginScreen()),
-                              );
-                            },
-                            child: const Text(
-                              'Agree and continue',
-                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: const BoxDecoration(
-                          color: lightGreenBg,
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(Icons.arrow_forward, color: zelqoGreen),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 12),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+          child: Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 52,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: zelqoGreen,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                      );
+                    },
+                    child: const Text(
+                      'Agree and continue',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Container(
+                width: 52,
+                height: 52,
+                decoration: const BoxDecoration(
+                  color: lightGreenBg,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(Icons.arrow_forward, color: zelqoGreen),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
